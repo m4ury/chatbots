@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import ChatsbotListItem from '@/Components/Chatbots/ChatsbotListItem.vue';
+import ChatbotsListItem from '@/Components/Chatbots/ChatbotsListItem.vue';
 defineProps({
     chatbots: {
         type: Array,
@@ -20,7 +20,7 @@ defineProps({
         <section class="py-12" aria-label="Chatbots List">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <ChatsbotListItem
+                    <ChatbotsListItem
                         v-for="chatbot in chatbots"
                         :key="chatbot.id"
                         :chatbot="chatbot"
