@@ -11,16 +11,16 @@ defineProps({
 });
 </script>
 <template>
-    <section class="border-b border-gray-200 p-5 dark:border-gray-700" :aria-label="chatbot.name">
-        <div class="flex flex-col">
+    <section class="border-gray-200 p-5 dark:border-gray-700" :aria-label="chatbot.name">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
                 <div class="text-gray-800 dark:text-gray-200">{{ chatbot.name }}</div>
-                <div class="text-small text-gray-500 dark:text-gray-400"">{{ chatbot.created_at }}</div>
+                <div class="text-small text-gray-500 dark:text-gray-400">{{ chatbot.created_at }}</div>
             </div>
-            <div class="flex space-x-2">
-                <PrimaryButton @click="$emit('edit', chatbot.id)">Edit</PrimaryButton>
-                <SecondaryButton @click="$emit('view', chatbot.id)">View</SecondaryButton>
-                <DangerButton @click="$emit('delete', chatbot.id)">Delete</DangerButton>
+            <div class="flex space-x-2 mt-4 md:mt-0">
+                <PrimaryButton>Edit</PrimaryButton>
+                <SecondaryButton>View</SecondaryButton>
+                <DangerButton>Delete</DangerButton>
             </div>
         </div>
     </section>
