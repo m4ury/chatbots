@@ -19,8 +19,14 @@ defineProps({
                 <div class="text-small text-gray-500 dark:text-gray-400">{{ dayjs(chatbot.created_at).fromNow() }}</div>
             </div>
             <div class="flex space-x-2 mt-4 md:mt-0">
-                <PrimaryButton>Edit</PrimaryButton>
-                <SecondaryButton>View</SecondaryButton>
+                <PrimaryButton
+                    class="text-red-500 dark:text-red-400"
+                    href="href"
+                    aria-label="Ver ChatBot"
+                    >
+                    View
+                </PrimaryButton>
+                <SecondaryButton>Edit</SecondaryButton>
                 <DangerButton>Delete</DangerButton>
             </div>
         </div>
