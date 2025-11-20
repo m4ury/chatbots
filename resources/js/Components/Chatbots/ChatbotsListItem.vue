@@ -3,6 +3,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import dayjs from '@/Utils/dayjs';
+import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 defineProps({
     chatbot: {
@@ -20,14 +21,27 @@ defineProps({
             </div>
             <div class="flex space-x-2 mt-4 md:mt-0">
                 <PrimaryButton
-                    class="text-red-500 dark:text-red-400"
-                    href="href"
+                    :href="route('chatbots.show', chatbot.id)"
                     aria-label="Ver ChatBot"
                     >
-                    View
+                    <EyeIcon class="h-4 w-4 mr-1" />
+                    <span>View</span>
                 </PrimaryButton>
-                <SecondaryButton>Edit</SecondaryButton>
-                <DangerButton>Delete</DangerButton>
+
+                <SecondaryButton
+                    :href="route('chatbots.edit', chatbot.id)"
+                    aria-label="Edit ChatBot"
+                    >
+                    <PencilIcon class="h-4 w-4 mr-1" />
+                    <span>Edit</span>
+                </SecondaryButton>
+                
+                <DangerButton
+                    aria-label="Delete ChatBot"
+                    >
+                    <TrashIcon class="h-4 w-4 mr-1" />
+                    <span>Delete</span>
+                </DangerButton>
             </div>
         </div>
     </section>
