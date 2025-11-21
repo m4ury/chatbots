@@ -21,8 +21,7 @@ const form = useForm({
 });
 
 const handleSubmit = () => {
-    //console.log(form.data());
-    form.put(route('chatbots.update', props.chatbot.id), {
+    form.post(route('chatbots.store'), {
         preserveScroll: true,
     });
 };
@@ -30,35 +29,33 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout :title="`Editar Chatbot: ${chatbot.name}`">
+    <AppLayout title="Nuevo Chatbot">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Chatbot: {{chatbot.name}}
             </h1>
         </template>
-        <section class="py-6" aria-label="Editar Chatbot">
+        <section class="py-6" aria-label="Crear Chatbot">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <FormSection @submitted="handleSubmit()">
                     <template #title>
-                       Editar Chatbot
+                       Crear Chatbot
                     </template>
                     <template #description>
-                        Modifica los detalles del chatbot.
+                        Crea un nuevo chatbot para tu aplicacion.
                     </template>
                     <template #form>
                         <ChatbotsForm :form="form" />
                     </template>
                     <template #actions>
-                        <ActionMessage :on="form.recentlySuccessful" class="me-3">
-                            Cambios guardados.
-                        </ActionMessage>
+
                         <PrimaryButton
                         type="submit"
                         :class="{
                             'cursor-not-allowed opacity-50': form.processing, // Add your condition here
                         }"
                         :disabled="form.processing"
-                        ariaLabel="Guardar Cambios"
+                        ariaLabel="Crear Chatbot"
                            >
                             Guardar Cambios
                         </PrimaryButton>

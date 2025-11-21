@@ -35,7 +35,7 @@ defineProps({
                     <PencilIcon class="h-4 w-4 mr-1" />
                     <span>Edit</span>
                 </SecondaryButton>
-                
+
                 <DangerButton
                     aria-label="Delete ChatBot"
                     >

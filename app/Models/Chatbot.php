@@ -13,14 +13,14 @@ class Chatbot extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $fillable = [
+    /* protected $fillable = [
         'name',
         'description',
         'user_id',
         'system_prompt',
         'model',
         'temperature',
-    ];
+    ]; */
 
     public function user(): belongsTo
     {
