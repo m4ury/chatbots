@@ -1,10 +1,18 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { ArrowUturnLeftIcon, PencilIcon, ChatBubbleBottomCenterIcon } from '@heroicons/vue/24/outline';
+import { ArrowUturnLeftIcon, PencilIcon, ChatBubbleBottomCenterIcon, BookOpenIcon } from '@heroicons/vue/24/outline';
 import { Link } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import dayjs from 'dayjs';
+import {ref} from "vue";
+import KnowledgeSourcesCreateModal from "@/Components/KnowledgeSources/KnowledgeSourcesCreateModal.vue";
+
+const showModal = ref(false)
+const closeModal = () => {
+    showModal.value = false
+}
+
 defineProps({
     chatbot: {
         type: Object,
@@ -117,12 +125,22 @@ defineProps({
 	              class="size-3"/>
 	            <span>Chat</span>
 	          </PrimaryButton>
-
+                <PrimaryButton aria-label="Agregar fuente de conocimiento"
+                @click="showModal = true">
+                    <BookOpenIcon
+                        class="size-3"
+                        />
+                    <span>Conocimiento</span>
+                </PrimaryButton>
 	        </div>
 	      </div>
 	    </section>
 	  </div>
 	</div>
+        <KnowledgeSourcesCreateModal
+            :show="showModal"
+            @close="showModal = false"
+        />
 </section>
     </AppLayout>
 </template>

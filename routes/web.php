@@ -24,4 +24,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('chatbots', ChatbotController::class);
+    //Route::resource('chatbots.knowledge-sources', KnowledgeSourceController::class);
 });

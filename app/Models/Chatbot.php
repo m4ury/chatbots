@@ -26,4 +26,9 @@ class Chatbot extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function knowledgeSources(): hasMany
+    {
+        return $this->hasMany(KnowledgeSource::class);
+    }
 }

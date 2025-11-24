@@ -4,7 +4,7 @@ import FormSection from '@/Components/FormSection.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import ChatbotsForm from '@/Components/Chatbots/ChatbotsForm.vue';
-import {createForm} from '@/Forms/chatbot';
+import {createForm, store} from '@/Forms/chatbot';
 
 const props = defineProps({
     chatbot: {
@@ -17,9 +17,7 @@ const form = createForm(props.chatbot);
 
 
 const handleSubmit = () => {
-    form.post(route('chatbots.store'), {
-        preserveScroll: true,
-    });
+    store(form)
 };
 
 </script>

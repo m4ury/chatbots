@@ -2,6 +2,9 @@
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '../TextInput.vue';
 import InputError from '../InputError.vue';
+import TextArea from "@/Components/TextArea.vue"
+import SelectInput from "@/Components/SelectInput.vue";
+
 
 defineProps({
     form: {
@@ -24,8 +27,8 @@ defineProps({
         <InputError :message="form.errors.name" class="mt-2" />
     </div>
     <div class="col-span-6 sm:col-span-4">
-        <InputLabel for="system_promt" value="System Prompt" class="mt-4" />
-        <TextInput
+        <InputLabel for="system_promt" value="System Prompt" />
+        <TextArea
             id="system_prompt"
             name="system_prompt"
             v-model="form.system_prompt"
@@ -35,11 +38,19 @@ defineProps({
     </div>
     <div class="col-span-6 sm:col-span-4">
         <InputLabel for="model" value="Model" class="mt-4" />
-        <TextInput
+        <SelectInput
             id="model"
             name="model"
             v-model="form.model"
             class="mt-1 block w-full"
+            placeholder="Selecciona un modelo"
+            :options="[
+                { label: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo' },
+                { label: 'gpt-4', value: 'gpt-4' },
+                { label: 'gpt-4-32k', value: 'gpt-4-32k' },
+                { label: 'gpt-3.5-turbo-16k', value: 'gpt-3.5-turbo-16k' },
+                { label: 'gpt-4-1106-preview', value: 'gpt-4-1106-preview' },
+            ]"
         />
         <InputError :message="form.errors.model" class="mt-2" />
     </div>

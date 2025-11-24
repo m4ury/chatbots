@@ -8,6 +8,20 @@ export const createForm = (chatbot = {}) =>
         temperature: String(chatbot.temperature),
     });
 
-export const store = (form) => {
-    form.post(route('chatbots.store'), preserveScroll: true });
+export const store = (form, options = {}) =>
+    form.post(
+        route('chatbots.store'),
+        getOptions(options)
+    );
+
+export const update = (form, chatbotId, options = {}) =>
+    form.put(
+        route('chatbots.update', chatbotId),
+        getOptions(options)
+    );
+
+const getOptions = options => ({
+    preserveScroll: true,
+    ...options,
+});
 
