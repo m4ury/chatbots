@@ -3,12 +3,12 @@
     import TextInput from "@/Components/TextInput.vue";
     import InputError from "@/Components/InputError.vue";
     import SelectInput from "@/Components/SelectInput.vue";
+    import FileInput from "@/Components/FileInput.vue";
 
     defineProps({
         form: Object
     })
     const sourceTypes = [
-        { label: 'Selecciona un tipo', value: '', disabled: true },
         { label: 'PDF', value: 'pdf' },
         { label: 'Website', value: 'website' },
     ]
@@ -44,11 +44,11 @@
 </div>
     <div v-if="form.type === 'pdf'" class="col-span-6 sm:col-span-4">
         <InputLabel for="pdf" value="PDF"/>
-        <TextInput
+        <FileInput
             id="pdf"
-            type="file"
             v-model="form.pdf"
             class="mt-1 block w-full"
+            accept="application/pdf"
             />
         <InputError
             :message="form.errors.pdf"
@@ -59,6 +59,8 @@
         <InputLabel for="website" value="Website"/>
         <TextInput
             id="website"
+            name="website"
+            type="url"
             v-model="form.website"
             class="mt-1 block w-full"
             />

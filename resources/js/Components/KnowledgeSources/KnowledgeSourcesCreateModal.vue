@@ -7,11 +7,15 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 const emit = defineEmits(['close'])
 
-defineProps({
+const props = defineProps({
     show: {
         type: Boolean,
         required: true,
-    }
+    },
+    chatbotId: {
+        type: String,
+        required: true,
+    },
 })
 
 const form = useForm({
@@ -22,41 +26,43 @@ const form = useForm({
 })
 
 const handleSubmit = () => {
-    form.post(route('knowledge-sources.store'), {
+    form.post(route('chatbots.knowledge-sources.store', { chatbot: props.chatbotId }), {
+        forceFormData: true, // necesario si envías archivos
         preserveScroll: true,
         onSuccess: () => {
-        emit('close')
-    },
-})
+            emit('close')
+            form.reset()
+        },
+    })
 }
 
 </script>
 
 <template>
     <DialogModal :show="show" @close="emit('close')">
-    <template #title>
-        Agregar fuente de conocimiento
-    </template>
-    <template #content>
-        <KnowledgeSourcesForm :form="form"/>
-    </template>
-    <template #footer>
-        <div class="flex w-full justify-between">
-            <SecondaryButton
-                href="#"
-                aria-label="Cerrar"
-                @click="emit('close')"
-            >
-                Cerrar
-            </SecondaryButton>
-            <PrimaryButton
-                @click="handleSubmit"
-                aria-label="Guardar"
-            >
-                Guardar
-            </PrimaryButton>
-        </div>
-    </template>
+        <template #title>
+            Agregar fuente de conocimiento
+        </template>
+        <template #content>
+            <KnowledgeSourcesForm :form="form"/>
+        </template>
+        <template #footer>
+            <div class="flex w-full justify-between">
+                <SecondaryButton
+                    href="#"
+                    aria-label="Cerrar"
+                    @click="emit('close')"
+                >
+                    Cerrar
+                </SecondaryButton>
+                <PrimaryButton
+                    @click="handleSubmit"
+                    aria-label="Guardar"
+                >
+                    Guardar
+                </PrimaryButton>
+            </div>
+        </template>
     </DialogModal>
 </template>
 

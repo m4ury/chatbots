@@ -19,11 +19,11 @@ class KnowledgeSourceFactory extends Factory
         return [
             'name' => fake()->sentence(),
             'type' => $type = fake()->randomElement(['pdf', 'website']),
-            'path' => match ($type){
+            'path' => match ($type) {
                 'pdf' => fake()->filePath(),
                 'website' => fake()->url(),
             },
-            'extracted_content' => fake()->paragraph(3, true)
+            'extracted_content' => fake()->paragraphs(3, true),
         ];
     }
 }

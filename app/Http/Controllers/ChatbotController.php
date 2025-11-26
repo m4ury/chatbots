@@ -36,7 +36,7 @@ class ChatbotController extends Controller
     {
         $chatbot = $request->user()
             ->chatbots()->create($request->validated());
-            
+
         return to_route('chatbots.show', $chatbot)->with('success', 'Chatbot created successfully.');
     }
 
@@ -45,6 +45,8 @@ class ChatbotController extends Controller
      */
     public function show(Chatbot $chatbot)
     {
+        $chatbot->load('knowledgeSources');
+
         return Inertia::render('Chatbots/Show', [
             'chatbot' => $chatbot,
         ]);

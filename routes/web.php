@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KnowledgeSourceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,5 +25,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('chatbots', ChatbotController::class);
-    //Route::resource('chatbots.knowledge-sources', KnowledgeSourceController::class);
+    Route::resource('chatbots.knowledge-sources', KnowledgeSourceController::class);
 });
