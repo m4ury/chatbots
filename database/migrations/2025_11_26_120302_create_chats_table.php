@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('knowledge_sources', function (Blueprint $table) {
-            $table->charset = 'utf8mb4';
-            $table->collation = 'utf8mb4_unicode_ci';
+        Schema::create('chats', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('chatbot_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('type');
-            $table->string('path');
-            $table->longText('extracted_content')->nullable();
+            $table->foreignUuid('chatbot_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('knowledge_sources');
+        Schema::dropIfExists('chats');
     }
 };

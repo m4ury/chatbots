@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {XMarkIcon, ArrowTopRightOnSquareIcon, CheckIcon, ArrowPathIcon} from "@heroicons/vue/24/outline";
 import dayjs from "dayjs";
+import KnowledgeSourceDeleteForm from "@/Components/KnowledgeSources/KnowledgeSourceDeleteForm.vue";
 
 
 defineProps({
@@ -14,6 +15,7 @@ defineProps({
         <div class="col-span-3 text-gray-700 dark:text-gray-300">
             <a
                 class="flex items-center justify-start space-x-2 underline underline-offset-4"
+                target="_blank"
                :href="route(
                    'chatbots.knowledge-sources.show',
                     {
@@ -38,7 +40,11 @@ defineProps({
         </div>
         <div class="col-span-4 text-gray-700 dark:text-gray-300">{{dayjs(knowledgeSource.created_at).format('DD-MM-YYYY')}}</div>
         <div class="col-span-1">
-            <XMarkIcon class="size-4 text-red-500"></XMarkIcon>
+            <KnowledgeSourceDeleteForm
+                :knowledge-source="knowledgeSource"
+            >
+                <XMarkIcon class="size-4 text-red-500"></XMarkIcon>
+            </KnowledgeSourceDeleteForm>
         </div>
     </div>
 </template>

@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Chat extends Model
+{
+    /** @use HasFactory<\Database\Factories\ChatFactory> */
+    use HasFactory;
+    use HasUuids;
+
+
+    public function user(): belongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function chatbot(): belongsTo
+    {
+        return $this->belongsTo(Chatbot::class);
+    }
+}

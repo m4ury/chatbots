@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreKnowledgeSourceRequest;
+use App\Jobs\ProcessKnoledgeSourceJob;
 use App\Models\Chatbot;
 use App\Models\KnowledgeSource;
 use Illuminate\Support\Facades\Storage;
@@ -36,11 +37,14 @@ class KnowledgeSourceController extends Controller
             'type' => $validated['type'],
         ]);
 
-        $knowledgeSource->path = $validated['type'] === 'pdf'
-            ? $validated['pdf']->store('pdfs')
-            : $validated['website'];
+        $knowledgeSource->path = match($validated['type']){
+            'pdf' => $validated['pdf']->store('pdfs'),
+            'website' => $validated['website']
+        };
 
         $chatbot->knowledgeSources()->save($knowledgeSource);
+
+        ProcessKnoledgeSourceJob::dispatch($knowledgeSource);
 
         return back();
     }
@@ -51,7 +55,14 @@ class KnowledgeSourceController extends Controller
     public function show(Chatbot $chatbot, KnowledgeSource $knowledgeSource)
     {
         if ($knowledgeSource->type === 'pdf'){
-           return Storage::response($knowledgeSource->path);
+           return Storage::response(
+               $knowledgeSource->path,
+               $knowledgeSource->name,[
+                   'Content-Type' => 'application/pdf',
+                   'Content-Disposition' => 'inline',
+
+               ]
+           );
         }
         return redirect($knowledgeSource->path);
     }
@@ -75,8 +86,19 @@ class KnowledgeSourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KnowledgeSource $knowledgeSource)
+    public function destroy(Chatbot $chatbot, KnowledgeSource $knowledgeSource)
     {
-        //
+        //autorization
+        $deleted = $knowledgeSource->delete();
+        if (!$deleted){
+            return back()->with('flash', [
+                'banner' => 'Hubo un problema al eliminar',
+                'bannerStyle' => 'danger'
+            ]);
+        }
+        if ($knowledgeSource->type === 'pdf'){
+            Storage::delete($knowledgeSource->path);
+        }
+        return back()->with('flash.banner', 'Fuente de conocimiento eliminada',);
     }
 }
